@@ -56,6 +56,7 @@ class Model(pl.LightningModule):
 
         self.distance_fn = lambda x, y: 1.0 - F.cosine_similarity(x, y)
         self.best_metric = 1e3
+        self.loss_fn_triplet = nn.TripletMarginWithDistanceLoss(distance_function=self.distance_fn, margin=0.2)
 
     def configure_optimizers(self):
         model_params = list(self.dino.parameters())
